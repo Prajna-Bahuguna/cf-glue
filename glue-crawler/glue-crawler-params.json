@@ -1,0 +1,46 @@
+[
+  {
+    "ParameterKey": "Crawler1Name",
+    "ParameterValue": "kmh_social"
+  },
+  {
+    "ParameterKey": "DatabaseName",
+    "ParameterValue": "kmh"
+  },
+  {
+    "ParameterKey": "GlueRoleName",
+    "ParameterValue": "glue-role"
+  },
+  {
+    "ParameterKey": "AccountID",
+    "ParameterValue": "235769897515"
+  },
+  {
+    "ParameterKey": "TablePrefix",
+    "ParameterValue": "weekly_"
+  },
+  {
+    "ParameterKey": "Crawler1Target",
+    "ParameterValue": "s3://sgm-nga-dev-kna-proc-intrnl/proc/data/kna_ext_mktg_exec/proc/social/"
+  },
+  {
+    "ParameterKey": "CrawlerUpdateBehaviour",
+    "ParameterValue": "LOG"
+  },
+  {
+    "ParameterKey": "EnvName",
+    "ParameterValue": "test"
+  },
+  {
+    "ParameterKey": "CrawlerDeleteBehaviour",
+    "ParameterValue": "DELETE_FROM_DATABASE "
+  },
+  {
+    "ParameterKey": "CrawlerAddorUpdateBehaviour",
+    "ParameterValue": "InheritFromTable"
+  },
+  {
+    "ParameterKey": "ConfigVersion",
+    "ParameterValue": "1.0"
+  }
+]

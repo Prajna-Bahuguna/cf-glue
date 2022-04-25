@@ -1,0 +1,75 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >
+  This template sets up AWS Glue Job.
+Parameters:
+  CommandName:
+    Type: String
+    Description: "Command Name of glue job"
+  PythonVersion:
+    Type: Number
+    Description: "Python version of glue job"
+  ScriptLocation:
+    Type: String
+    Description: "Script Location of glue job"
+  TempDir:
+    Type: String
+    Description: "Specifies an Amazon S3 path to a bucket that can be used as a temporary directory for the job."
+  ExtraPyFiles:
+    Type: String
+    Description: "The Amazon S3 paths to additional Python modules that AWS Glue adds to the Python path before executing your script. Multiple values must be complete paths separated by a comma (,). Only individual files are supported, not a directory path."
+  ConcurrentRuns:
+    Type: String
+    Description: "The maximum number of concurrent runs allowed for a job. The default is 1."
+  JobName:
+    Type: String
+    Description: "Name of glue job"
+  GlueVersion:
+    Type: String
+    Description: "The version of glue to use"
+  MaxCapacity:
+    Type: Number
+    Description: "The maximum number of AWS Glue data processing units (DPUs) that can be allocated when this job runs"
+  MaxRetries:
+    Type: String
+    Description: "The maximum number of times to retry this job if it fails."
+  Timeout:
+    Type: Number
+    Description: "The job timeout in minutes."
+  EnvName:
+    Type: String
+    Description: "Name of the environment"
+  AccountID:
+    Type: String
+    Description: "Account ID of AWS" 
+  GlueRoleName:
+    Type: String
+    Description: "Glue role name"          
+Resources : 
+  AWSGlueJob:
+    Type: AWS::Glue::Job
+    Properties:
+      Command: {
+        "Name": !Sub "${CommandName}",
+        "PythonVersion": !Sub "${PythonVersion}",
+        "ScriptLocation": !Sub "${ScriptLocation}"  
+      }
+      DefaultArguments: {
+        "--TempDir": !Sub "${TempDir}",
+        "--enable-glue-datacatalog": "",
+        "--extra-py-files": !Sub "${ExtraPyFiles}",
+        "--class": "GlueApp",
+        "--env": "dev",
+        "--org": "sgm",
+        "--stage": "clns",
+      }  
+      ExecutionProperty:
+        MaxConcurrentRuns: !Sub "${ConcurrentRuns}"
+      Name: !Sub "${EnvName}-${JobName}" 
+      Role: !Sub arn:aws:iam::${AccountID}:role/${EnvName}-${GlueRoleName}
+      GlueVersion: !Sub "${GlueVersion}" 
+      MaxCapacity: !Sub "${MaxCapacity}" 
+      MaxRetries: !Sub "${MaxRetries}" 
+      Timeout: !Sub "${Timeout}" 
+      Tags: {
+        "ENV": !Sub "${EnvName}" 
+      }

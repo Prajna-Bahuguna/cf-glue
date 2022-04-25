@@ -1,0 +1,58 @@
+[
+  {
+    "ParameterKey": "CommandName",
+    "ParameterValue": "pythonshell"
+  },
+  {
+    "ParameterKey": "PythonVersion",
+    "ParameterValue": "3"
+  },
+  {
+    "ParameterKey": "ScriptLocation",
+    "ParameterValue": "s3://sgm-nga-dev-kna-src-cd/src_cd/kna_ext_mktg_exec/glue_scripts/dev_wf_raw2clns_nga_kna_ext_intrnl_mktg_exec.py"
+  },
+  {
+    "ParameterKey": "TempDir",
+    "ParameterValue": "s3://sgm-nga-dev-kna-src-cd/src_cd/kna_ext_mktg_exec/glue_scripts/"
+  },
+  {
+    "ParameterKey": "ExtraPyFiles",
+    "ParameterValue": "s3://sgm-nga-dev-kna-src-cd/src_cd/kna_ext_mktg_exec/glue_dependencies/xlrd-1.2.0-py2.py3-none-any.whl,s3://sgm-nga-dev-kna-src-cd/src_cd/kna_ext_mktg_exec/glue_dependencies/s3fs-0.4.2-py3-none-any.whl,s3://sgm-nga-dev-kna-src-cd/src_cd/kna_ext_mktg_exec/glue_dependencies/standardize_helper_module-1.0-py3-none-any.whl,s3://sgm-nga-dev-kna-src-cd/src_cd/kna_ext_mktg_exec/glue_dependencies/awswrangler-2.12.0-py3-none-any.whl"
+  },
+  {
+    "ParameterKey": "ConcurrentRuns",
+    "ParameterValue": "10"
+  },
+  {
+    "ParameterKey": "JobName",
+    "ParameterValue": "job-1"
+  },
+  {
+    "ParameterKey": "GlueVersion",
+    "ParameterValue": "0.9"
+  },
+  {
+    "ParameterKey": "MaxCapacity",
+    "ParameterValue": "1.0"
+  },
+  {
+    "ParameterKey": "MaxRetries",
+    "ParameterValue": "0"
+  },
+  {
+    "ParameterKey": "Timeout",
+    "ParameterValue": "2880"
+  },
+  {
+    "ParameterKey": "EnvName",
+    "ParameterValue": "test"
+  },
+  {
+    "ParameterKey": "AccountID",
+    "ParameterValue": "235769897515"
+  },
+  {
+    "ParameterKey": "GlueRoleName",
+    "ParameterValue": "glue-role"
+  }
+]

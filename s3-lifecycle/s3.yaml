@@ -1,0 +1,43 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Template to setup lifecycle configuration
+Parameters:
+  DeletionPolicy:
+    Type: String
+    Description: "Deletion Policy for S3 bucket"
+  BucketName:
+    Type: String
+    Description: "Name of S3 bucket to apply lifecycle configuration to"
+  RuleName:
+    Type: String
+    Description: "Rule name for S3 bucket lifecycle configuration."
+  Prefix:
+    Type: String
+    Description: "Prefix of folder to apply lifecycle configuration to"
+  Status:
+    Type: String
+    Description: "Status of Lifecycle configuration"
+  TransitionDays:
+    Type: Number
+    Description: "Number of days after which objects transition to storage class"
+  StorageClass:
+    Type: String
+    Description: "Storage class of transitioned objects"
+  ExpirationDays:
+    Type: Number
+    Description: "Number of days after which transitioned objects expire"
+
+Resources:
+  DemoBucket:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: !Sub "${DeletionPolicy}"  
+    Properties:
+      BucketName: !Sub "${BucketName}" 
+      LifecycleConfiguration:
+        Rules:
+          - Id: !Sub "${RuleName}"  
+            Prefix: !Sub "${Prefix}" 
+            Status: !Sub "${Status}" 
+            Transitions:
+              - TransitionInDays: !Sub "${TransitionDays}" 
+                StorageClass: !Sub "${StorageClass}" 
+            ExpirationInDays: !Sub "${ExpirationDays}" 

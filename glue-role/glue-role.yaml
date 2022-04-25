@@ -1,0 +1,154 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >
+  This template sets up sample AWS Glue Role.
+Parameters:
+  BucketName1:
+    Type: String
+    Description: "Name of the S3 bucket"
+  BucketName2:
+    Type: String
+    Description: "Name of the S3 bucket"  
+  ObjectName:
+    Type: String
+    Description: "Object Name of the S3 bucket"
+  RegionName:
+    Type: String
+    Description: "Region Name of resources to apply policies to"  
+  AccountID:
+    Type: String
+    Description: "Account ID of AWS"
+  LogGroupName:
+    Type: String
+    Description: "Log Group Name of Glue Job"
+  LogStreamName:
+    Type: String
+    Description: "Log Stream Name of Glue Job"
+  JobName:
+    Type: String
+    Description: "Name of the Glue Job" 
+  EnvName:
+    Type: String
+    Description: "Name of the environment"
+  DatabaseName:
+    Type: String
+    Description: "Name of the catalog database"
+  TableName:
+    Type: String
+    Description: "Name of the catalog table"
+  CrawlerName:
+    Type: String
+    Description: "Name of the crawler"     
+Resources : 
+  AWSGlueJobRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      RoleName: !Sub "${EnvName}-glue-role"
+      Tags: 
+        - Key: "ENV"
+          Value: !Sub "${EnvName}"
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - glue.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Policies:
+        - PolicyName: !Sub "${EnvName}-CustomS3Policy"
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "s3:ListAllMyBuckets"
+                  - "s3:ListBucket"
+                Resource:
+                  - "*"
+              - Effect: Allow
+                Action:
+                  - "s3:PutObject"
+                Resource:
+                  - !Sub "arn:aws:s3:::${BucketName1}/${ObjectName}"
+                  - !Sub "arn:aws:s3:::${BucketName2}/${ObjectName}"
+              - Effect: Allow
+                Action:
+                  - "s3:GetObject"
+                Resource:
+                  - !Sub "arn:aws:s3:::${BucketName1}/${ObjectName}" 
+                  - !Sub "arn:aws:s3:::${BucketName2}/${ObjectName}"            
+        - PolicyName: !Sub "${EnvName}-CustomGluePolicy"
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "glue:BatchGetJobs"
+                Resource:
+                  - !Sub "arn:aws:glue:${RegionName}:${AccountID}:job/${EnvName}-${JobName}"
+              - Effect: Allow
+                Action:
+                  - "glue:StartJobRun"
+                Resource:
+                  - !Sub "arn:aws:glue:${RegionName}:${AccountID}:job/${EnvName}-${JobName}"
+              - Effect: Allow
+                Action:
+                  - "glue:CreateDatabase"
+                Resource:
+                  - !Sub "arn:aws:glue:${RegionName}:${AccountID}:job/${EnvName}-${JobName}"
+              - Effect: Allow          
+                Action: 
+                  - "glue:SearchTables"
+                  - "glue:GetDatabase"
+                  - "glue:UpdateDatabase"
+                  - "glue:GetCrawler"
+                  - "glue:BatchGetCrawlers"
+                  - "glue:StartCrawler"
+                  - "glue:UpdateTable"
+                  - "glue:UpdateColumnStatisticsForTable"
+                  - "glue:StopCrawler"
+                  - "glue:UpdateCrawler"
+                  - "glue:GetTable"
+                Resource: 
+                  - !Sub "arn:aws:glue:${RegionName}:${AccountID}:catalog"
+                  - !Sub "arn:aws:glue:${RegionName}:${AccountID}:crawler/${EnvName}-${CrawlerName}"   
+                  - !Sub "arn:aws:glue:${RegionName}:${AccountID}:database/${EnvName}-${DatabaseName}" 
+                  - !Sub "arn:aws:glue:${RegionName}:${AccountID}:table/${EnvName}-${DatabaseName}/${EnvName}-${TableName}"
+              - Effect: Allow
+                Action: 
+                - "glue:GetCrawlers"
+                - "glue:ListCrawlers"
+                Resource: "*"                 
+        - PolicyName: !Sub "${EnvName}-CustomCloudwathcPolicy"
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "cloudwatch:PutMetricData"
+                Resource:
+                  - "*"
+              - Effect: Allow
+                Action:
+                  - "iam:GetRole"
+                  - "iam:PassRole"
+                  - "logs:CreateLogStream"
+                  - "iam:ListRolePolicies"
+                  - "iam:GetRolePolicy"
+                  - "logs:CreateLogGroup"
+                Resource:
+                  - !Sub "arn:aws:iam::${AccountID}:role/${EnvName}-glue-role"   
+                  - !Sub "arn:aws:logs:${RegionName}:${AccountID}:log-group:${LogGroupName}:log-stream:${LogStreamName}"
+              - Effect: Allow
+                Action:
+                  - "logs:PutLogEvents"
+                Resource:
+                  - !Sub "arn:aws:logs:${RegionName}:${AccountID}:log-group:${LogGroupName}:log-stream:${LogStreamName}" 
+              - Effect: Allow
+                Action:
+                  - "logs:CreateLogStream"
+                  - "logs:CreateLogGroup"
+                  - "logs:PutLogEvents"
+                Resource:
+                  - !Sub "arn:aws:logs:${RegionName}:${AccountID}:log-group:${LogGroupName}" 

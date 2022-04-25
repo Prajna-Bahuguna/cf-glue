@@ -1,0 +1,52 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >
+  This template sets up sample AWS Glue Crawlers.
+Parameters:
+  Crawler1Name:
+    Type: String
+    Description: "Crawler 1 Name"
+  DatabaseName:
+    Type: String
+    Description: "Catalog database name"
+  TablePrefix:
+    Type: String
+    Description: "Table Prefix for crawler"  
+  Crawler1Target:
+    Type: String
+    Description: "S3 path target for crawler1" 
+  CrawlerUpdateBehaviour:
+    Type: String
+    Description: "Schema Change Policy for update behaviour of crawler"
+  CrawlerDeleteBehaviour:
+    Type: String
+    Description: "Schema Change Policy for delete behaviour of crawler"
+  CrawlerAddorUpdateBehaviour:
+    Type: String
+    Description: "Schema Change Policy for add or update behaviour of crawler"
+  ConfigVersion:
+    Type: Number
+    Description: "Configuration Version for crawler" 
+  EnvName:
+    Type: String
+    Description: "Name of the environment"
+  AccountID:
+    Type: String
+    Description: "Account ID of AWS" 
+  GlueRoleName:
+    Type: String
+    Description: "Glue role name"      
+Resources:  
+  GlueCrawler:
+    Type: AWS::Glue::Crawler
+    Properties:
+      Name: !Sub "${EnvName}-${Crawler1Name}"
+      Role: !Sub arn:aws:iam::${AccountID}:role/${EnvName}-${GlueRoleName}
+      DatabaseName: !Sub "${EnvName}-${DatabaseName}"
+      TablePrefix: !Sub "${EnvName}-${TablePrefix}" 
+      Targets:
+        S3Targets:
+          - Path: !Sub "${Crawler1Target}"    
+      SchemaChangePolicy:
+        UpdateBehavior: !Sub "${CrawlerUpdateBehaviour}"
+        DeleteBehavior: !Sub "${CrawlerDeleteBehaviour}"
+      "Configuration": "{ \"Version\": 1.0, \"CrawlerOutput\": {\"Partitions\": { \"AddOrUpdateBehavior\": \"InheritFromTable\" }}}"

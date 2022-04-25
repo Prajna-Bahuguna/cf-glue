@@ -1,0 +1,34 @@
+[
+    {
+      "ParameterKey": "DeletionPolicy",
+      "ParameterValue": "Retain"
+    },
+    {
+      "ParameterKey": "BucketName",
+      "ParameterValue": "prajna-bucket-1"
+    },
+    {
+      "ParameterKey": "RuleName",
+      "ParameterValue": "Rule"
+    },
+    {
+      "ParameterKey": "Prefix",
+      "ParameterValue": "terraform.tfstate"
+    },
+    {
+      "ParameterKey": "Status",
+      "ParameterValue": "Enabled"
+    },
+    {
+        "ParameterKey": "TransitionDays",
+        "ParameterValue": "1"
+    },
+    {
+        "ParameterKey": "StorageClass",
+        "ParameterValue": "GLACIER_IR"
+    },
+    {
+        "ParameterKey": "ExpirationDays",
+        "ParameterValue": "365"
+    }
+]    
