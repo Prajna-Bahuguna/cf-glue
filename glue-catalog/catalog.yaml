@@ -5,13 +5,16 @@ Parameters:
   EnvName:
     Type: String
     Description: "Name of environment"
+  DatabaseName:
+    Type: String
+    Description: "Catalog database name"  
 Resources:
   GlueDatabase:
     Type: AWS::Glue::Database
     Properties:
       CatalogId: !Ref AWS::AccountId
       DatabaseInput:
-        Name: !Sub "${EnvName}-kmh"
+        Name: !Sub "${EnvName}-${DatabaseName}"
   GlueTable1:
     Type: AWS::Glue::Table
     Properties:
@@ -22,7 +25,7 @@ Resources:
           classification: parquet
           sizeKey: 239808
           objectCount: 6
-          UPDATED_BY_CRAWLER: !Sub "${EnvName}-kmh_display"
+          UPDATED_BY_CRAWLER: !Sub "${EnvName}-cloudformationkmh_display"
           CrawlerSchemaSerializerVersion: 1.0
           recordCount: 7992
           averageRecordSize: 16
@@ -30,7 +33,7 @@ Resources:
           compressionType: none
           classification: parquet
           typeOfData: file
-        Name: !Sub "${EnvName}-weekly_display"
+        Name: !Sub "${EnvName}-cloudformationweekly_display"
         Owner: owner
         Retention: 0
         StorageDescriptor:
@@ -136,7 +139,7 @@ Resources:
         Parameters:
           sizeKey: 1851287
           objectCount: 26
-          UPDATED_BY_CRAWLER: !Sub "${EnvName}-kmh_search"
+          UPDATED_BY_CRAWLER: !Sub "${EnvName}-cloudformationkmh_search"
           CrawlerSchemaSerializerVersion: 1.0
           recordCount: 12472
           averageRecordSize: 255
@@ -144,7 +147,7 @@ Resources:
           compressionType: none
           classification: parquet
           typeOfData: file
-        Name: !Sub "${EnvName}-weekly_search"
+        Name: !Sub "${EnvName}-cloudformationweekly_search"
         Owner: owner
         Retention: 0
         StorageDescriptor:
@@ -244,7 +247,7 @@ Resources:
         Parameters:
           sizeKey: 852746
           objectCount: 40
-          UPDATED_BY_CRAWLER: !Sub "${EnvName}-kmh_olv"
+          UPDATED_BY_CRAWLER: !Sub "${EnvName}-cloudformationkmh_olv"
           CrawlerSchemaSerializerVersion: 1.0
           recordCount: 90
           averageRecordSize: 1117
@@ -252,7 +255,7 @@ Resources:
           compressionType: none
           classification: parquet
           typeOfData: file
-        Name: !Sub "${EnvName}-weekly_olv" 
+        Name: !Sub "${EnvName}-cloudformationweekly_olv" 
         Owner: owner
         Retention: 0
         StorageDescriptor:
@@ -356,7 +359,7 @@ Resources:
         Parameters:
           sizeKey: 911453
           objectCount: 32
-          UPDATED_BY_CRAWLER: !Sub "${EnvName}-kmh_social"
+          UPDATED_BY_CRAWLER: !Sub "${EnvName}-cloudformationkmh_social"
           CrawlerSchemaSerializerVersion: 1.0
           recordCount: 10931
           averageRecordSize: 21
@@ -364,7 +367,7 @@ Resources:
           compressionType: none
           classification: parquet
           typeOfData: file
-        Name: !Sub "${EnvName}-weekly_social" 
+        Name: !Sub "${EnvName}-cloudformationweekly_social" 
         Owner: owner
         Retention: 0
         StorageDescriptor:

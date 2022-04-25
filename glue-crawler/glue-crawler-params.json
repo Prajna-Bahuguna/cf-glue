@@ -1,11 +1,11 @@
 [
   {
     "ParameterKey": "Crawler1Name",
-    "ParameterValue": "kmh_social"
+    "ParameterValue": "cloudformationkmh_social"
   },
   {
     "ParameterKey": "DatabaseName",
-    "ParameterValue": "kmh"
+    "ParameterValue": "cloudformationdb12"
   },
   {
     "ParameterKey": "GlueRoleName",
@@ -17,7 +17,7 @@
   },
   {
     "ParameterKey": "TablePrefix",
-    "ParameterValue": "weekly_"
+    "ParameterValue": "cloudformationweekly_"
   },
   {
     "ParameterKey": "Crawler1Target",

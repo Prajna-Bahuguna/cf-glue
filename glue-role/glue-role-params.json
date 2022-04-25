@@ -29,7 +29,7 @@
   },
   {
     "ParameterKey": "JobName",
-    "ParameterValue": "job-1"
+    "ParameterValue": "cloudformationjob-1"
   },
   {
     "ParameterKey": "EnvName",
@@ -37,14 +37,14 @@
   },
   {
     "ParameterKey": "DatabaseName",
-    "ParameterValue": "kmh"
+    "ParameterValue": "cloudformationdb12"
   },
   {
     "ParameterKey": "TableName",
-    "ParameterValue": "weekly_*"
+    "ParameterValue": "cloudformationweekly_*"
   },
   {
     "ParameterKey": "CrawlerName",
-    "ParameterValue": "kmh_*"
+    "ParameterValue": "cloudformationkmh_*"
   }
 ]

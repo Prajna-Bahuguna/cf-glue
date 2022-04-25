@@ -2,5 +2,9 @@
     {
         "ParameterKey": "EnvName",
         "ParameterValue": "test"
-      }
+      },
+    {
+        "ParameterKey": "DatabaseName",
+        "ParameterValue": "cloudformationdb12"
+    }
 ]

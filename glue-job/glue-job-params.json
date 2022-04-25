@@ -25,7 +25,7 @@
   },
   {
     "ParameterKey": "JobName",
-    "ParameterValue": "job-1"
+    "ParameterValue": "cloudformationjob-1"
   },
   {
     "ParameterKey": "GlueVersion",
